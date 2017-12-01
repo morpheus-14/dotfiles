@@ -60,6 +60,9 @@ Plug 'rakr/vim-one'
 Plug 'purescript-contrib/purescript-vim'
 Plug 'frigoeu/psc-ide-vim'
 
+" Vim resurrect
+Plug 'tpope/vim-obsession'
+
 " End vim plug
 call plug#end()
 
@@ -193,6 +196,7 @@ set encoding=utf8
 set ffs=unix,dos,mac
 
 " enable powerline font
+let g:airline_powerline_fonts=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
