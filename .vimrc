@@ -24,6 +24,12 @@ nmap <leader>w :w!<cr>
 command W w !sudo tee % > /dev/null
 
 " Init vim plug
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Init plugins
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-surround'
@@ -37,34 +43,57 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-sleuth'
-Plug 'mxw/vim-jsx'
-Plug 'elzr/vim-json'
+
+" Dash Docsets
+Plug 'sunaku/vim-dasht'
 
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
-" Helm like plugin
-Plug 'ctrlpvim/ctrlp.vim'
+" Purescript
+Plug 'purescript-contrib/purescript-vim'
+Plug 'frigoeu/psc-ide-vim'
 
-" Rust
-Plug 'rust-lang/rust.vim'
-Plug 'racer-rust/vim-racer'
+" Javascript
+Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
+
+" Deoplete
+"if has('nvim')
+  "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"else
+  "Plug 'Shougo/deoplete.nvim'
+  "Plug 'roxma/nvim-yarp'
+  "Plug 'roxma/vim-hug-neovim-rpc'
+"endif
+"let g:deoplete#enable_at_startup = 1
+
+" fzf
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+" All Langs
+" Plug 'sheerun/vim-polyglot'
 
 " Vim themes
 Plug 'morhetz/gruvbox'
 Plug 'dracula/vim'
 Plug 'rakr/vim-one'
 
-" Purescript
-Plug 'purescript-contrib/purescript-vim'
-Plug 'frigoeu/psc-ide-vim'
+" Simple bracket complete and stuff
+Plug 'Raimondi/delimitMate'
 
 " Vim resurrect
 Plug 'tpope/vim-obsession'
 
+" Vim wiki
+Plug 'vimwiki/vimwiki'
+
 " End vim plug
 call plug#end()
+
+" for vim wiki
+set nocompatible
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -75,6 +104,9 @@ set so=7
 " For line numbers
 set number
 set relativenumber
+
+" For mouse
+set mouse=a
 
 " For ctrl p
 let g:ctrlp_map = '<c-p>'
@@ -242,7 +274,7 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
+map <space> :
 map <c-space> ?
 
 " Disable highlight when <leader><cr> is pressed
