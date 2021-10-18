@@ -1,0 +1,505 @@
+let mapleader = ","
+call plug#begin('~/.config/nvim/plugged')
+
+"" Utilities
+Plug 'vim-syntastic/syntastic'
+" Plug 'vim-airline/vim-airline'
+Plug 'scrooloose/nerdtree'
+" Plug 'ervandew/supertab'
+Plug 'shime/vim-livedown'
+
+"" Appearance
+Plug 'morhetz/gruvbox'
+Plug 'dracula/vim'
+Plug 'junegunn/seoul256.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'ayu-theme/ayu-vim'
+" Plug 'vim-airline/vim-airline-themes'
+
+"" golang
+Plug 'fatih/vim-go'
+Plug 'zchee/deoplete-go', { 'do': 'make'}
+"Plug 'jodosha/vim-godebug'
+
+"" c/c++
+"Plug 'zchee/deoplete-clang'
+Plug 'Shougo/neoinclude.vim'
+
+"" purescript
+Plug 'purescript-contrib/purescript-vim'
+Plug 'frigoeu/psc-ide-vim'
+
+"" html
+"Plug 'mattn/emmet-vim'
+"Plug 'othree/html5.vim'
+
+"" comments
+Plug 'tpope/vim-commentary'
+
+Plug 'jiangmiao/auto-pairs' " for autocomplete of [ , ( etc
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+Plug 'edkolev/tmuxline.vim'
+"Plug 'tpope/vim-obsession'
+Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
+""Plug 'Shougo/denite.nvim'
+Plug 'junegunn/vim-easy-align'
+Plug 'yuttie/comfortable-motion.vim'
+"Plug 'tpope/vim-sleuth'
+
+"" note taking
+"Plug 'xolox/vim-misc'
+"Plug 'mtth/scratch.vim'
+Plug 'vimwiki/vimwiki'
+
+"" vim
+"" Plug 'fntlnz/atags.vim'
+"" Plug 'ludovicchabant/vim-gutentags'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
+Plug 'tpope/vim-surround'
+"" Plug 'Yggdroot/indentLine'
+
+"" fzf
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+"" git diff
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+
+"" productivity
+Plug 'wakatime/vim-wakatime'
+Plug 'rizzatti/dash.vim'
+Plug 'itchyny/calendar.vim'
+" Track the engine.
+Plug 'SirVer/ultisnips'
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+
+"" Javascript/Typescript
+" Plug 'leafgarland/typescript-vim'
+" typescript
+Plug 'leafgarland/typescript-vim'
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'Quramy/tsuquyomi'
+
+" Haskell
+Plug 'neovimhaskell/haskell-vim'
+
+"" motion
+"Plug 'easymotion/vim-easymotion'
+
+"" clojure
+"" Plug 'jebberjeb/clojure-socketrepl.nvim'
+"Plug 'clojure-vim/async-clj-omni'
+
+"" python
+"Plug 'zchee/deoplete-jedi'
+"Plug 'davidhalter/jedi-vim'
+
+"" scala
+"Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'derekwyatt/vim-scala'
+
+"" julia
+Plug 'JuliaEditorSupport/julia-vim'
+
+"" Objective C
+Plug 'msanders/cocoa.vim'
+
+"" Writing
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/goyo.vim'
+
+call plug#end()
+
+syntax on
+filetype on
+filetype plugin indent on
+set number
+set formatoptions+=o
+
+set nocompatible
+set hidden
+"set showtabline=0 " removes the tabline
+
+" set to auto read when file changed from outside
+set autoread
+
+" ignore case when searching
+set ignorecase
+
+" Fast save
+nmap <leader>w :w!<cr>
+
+" Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>y  "+y
+
+" Cut to clipboard
+vnoremap  <leader>d  "+d
+nnoremap  <leader>d  "+d
+
+" Paste from clipboard
+nnoremap <leader>p "+p
+vnoremap <leader>p "+p
+map <C-n> :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1 " see hidden files
+
+" for tabs to spaces and for 2 space as a tab
+set expandtab " for tabs to spaces
+set tabstop=2 " one tab is 2 spaces
+set shiftwidth=2 " indents width 2
+set softtabstop=2 "no. of columns for a TAB
+
+" enable powerline font
+" let g:airline_powerline_fonts=1
+
+" use 256 colors
+set t_Co=256
+
+"matching brakcets
+set showmatch
+" how many tenths of a second to blink when matching brackets
+set mat=2
+
+" map <Space> to / (search)
+" map <space> /
+" removed due to ctrl space
+" map <c-space> ?
+
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
+" useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove
+map <leader>t<leader> :tabnext<cr>
+
+" pressing tab toggles, shift tab toggles back
+nnoremap <Tab> gt
+nnoremap <S-Tab> gT
+
+" Let 'tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+nmap <M-Tab> :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+" open new tab
+map <leader>t :tabe<CR>
+
+" iterm2 nightly
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+"color scheme
+" gruvbox old theme
+" colorscheme ayu
+" let g:seoul256_background = 233
+" colo seoul256
+set termguicolors
+let ayucolor="dark"   " for dark version of theme
+colorscheme ayu
+
+
+" colorscheme munich
+
+" This is commented as it makes inside tmux and outside tmux vim look different
+"Credit joshdick
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+"if (empty($TMUX))
+"  if (has("nvim"))
+"  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+"  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+"  endif
+"  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+"  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+"  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+"  if (has("termguicolors"))
+"    set termguicolors
+"  endif
+"endif
+
+set background=dark    " Setting dark mode
+
+" let g:airline_theme='dracula'
+let g:airline_theme='seoul256'
+
+" why commented? was trying g; , need to find what it is
+" nnoremap ; :
+
+
+" deoplete
+set runtimepath+=~/.config/nvim/plugged/deoplete.nvim/
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_ignore_case = 1
+let g:deoplete#sources#go = 'vim-go'
+let g:deoplete#complete_method = 'omnifunc'
+let g:deoplete#sources#go#gocode_binary = '/Users/juspay/Documents/code/go/bin/gocode'
+
+" deoplete scala
+" let g:deoplete#sources={}
+" let g:deoplete#sources._=['buffer', 'member', 'tag', 'file', 'omni', 'ultisnips']
+" let g:deoplete#omni#input_patterns={}
+" let g:deoplete#omni#input_patterns.scala='[^. *\t]\.\w*'
+
+
+
+" more natural split direction
+set splitbelow
+set splitright
+
+" purescript ide
+au FileType purescript nm <buffer> <silent> <leader>t :<C-U>call PSCIDEtype(PSCIDEgetKeyword(), v:true)<CR>
+au FileType purescript nm <buffer> <silent> <leader>T :<C-U>call PSCIDEaddTypeAnnotation(matchstr(getline(line(".")), '^\s*\zs\k\+\ze'))<CR>
+au FileType purescript nm <buffer> <silent> <leader>s :<C-U>call PSCIDEapplySuggestion()<CR>
+au FileType purescript nm <buffer> <silent> <leader>a :<C-U>call PSCIDEaddTypeAnnotation()<CR>
+au FileType purescript nm <buffer> <silent> <leader>i :<C-U>call PSCIDEimportIdentifier(PSCIDEgetKeyword())<CR>
+au FileType purescript nm <buffer> <silent> <leader>r :<C-U>call PSCIDEload()<CR>
+au FileType purescript nm <buffer> <silent> <leader>p :<C-U>call PSCIDEpursuit(PSCIDEgetKeyword())<CR>
+au FileType purescript nm <buffer> <silent> <leader>C :<C-U>call PSCIDEcaseSplit("!")<CR>
+au FileType purescript nm <buffer> <silent> <leader>f :<C-U>call PSCIDEaddClause("")<CR>
+au FileType purescript nm <buffer> <silent> <leader>qa :<C-U>call PSCIDEaddImportQualifications()<CR>
+au FileType purescript nm <buffer> <silent> ]d :<C-U>call PSCIDEgoToDefinition("", PSCIDEgetKeyword())<CR>
+
+let g:psc_ide_syntastic_mode = 1
+
+" paul's snippet, random port per psc-ide
+if !exists('g:psc_ide_server_port')
+  let g:psc_ide_server_port = system('echo -n $[${RANDOM}%3000+4000]')
+endif
+
+" Grepper - to find files, find all etc
+" nnoremap <leader>G :Grepper -tool ag<cr>
+" nnoremap <leader>* :Grepper -tool ag -cword -noprompt<cr><Paste>
+
+" ctrl + c to quit - mainly to close buffers/windows
+nnoremap <C-C> :q<cr>
+
+" Go to tab by number
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<cr>
+
+" enables mouse support
+set mouse=a
+
+
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+
+" switching between buffers/windows (right now with shift but should use alt
+" or some other key)
+nmap <silent> <S-Up> :wincmd k<CR>
+nmap <silent> <S-Down> :wincmd j<CR>
+nmap <silent> <S-Left> :wincmd h<CR>
+nmap <silent> <S-Right> :wincmd l<CR>
+
+" golang
+let g:go_fmt_command = "goimports"
+autocmd FileType go nmap <leader>b <Plug>(go-build)
+autocmd FileType go nmap <leader>r <Plug>(go-run)
+autocmd FileType go nmap <Leader>i <Plug>(go-info)
+autocmd FileType go nmap <buffer> <silent> ]d <Plug>(go-def)
+
+let g:go_auto_type_info = 1
+set updatetime=400
+
+let g:go_highlight_types = 1
+" commented as would make it too slow
+" let g:go_auto_type_info = 1 " when cursor is on a valid identifier
+" set updatetime=100 " for quick update of statusline
+
+" html
+" let g:user_emmet_install_global = 0
+" autocmd FileType html,css,gohtml EmmetInstall
+
+" clojure
+" let g:deoplete#keyword_patterns = {}
+" let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
+
+" https://stackoverflow.com/a/1295244
+set incsearch
+" example usage
+" /old text
+" :%s//replaced text/
+
+" terminal escape
+tnoremap <Esc> <C-\><C-n>
+
+" color column, should not cross that line
+" set colorcolumn=80
+" highlight ColorColumn ctermbg=Blue
+
+" c/c++ autocomplete
+let g:deoplete#sources#clang#libclang_path='/usr/local/Cellar/llvm/7.0.0/lib/libclang.dylib'
+let g:deoplete#sources#clang#clang_header='/usr/local/Cellar/llvm/7.0.0/lib/clang'
+
+" ctags and goto definition
+" map <C-\> :sp <CR>:exec("tag ".expand("<cword>"))<CR>
+" map <Leader>t :call atags#generate()<cr>
+
+" this is fzf
+set rtp+=/usr/local/opt/fzf
+
+" fzf as ctrl-p
+nnoremap <C-p> :Files<CR>
+
+function! s:fzf_neighbouring_files()
+  let current_file =expand("%")
+  let cwd = fnamemodify(current_file, ':p:h')
+  let command = 'ag -g "" -f ' . cwd . ' --depth 0'
+
+  call fzf#run({
+        \ 'source': command,
+        \ 'sink':   'e',
+        \ 'options': '-m -x +s',
+        \ 'window':  'enew' })
+endfunction
+
+command! FZFNeigh call s:fzf_neighbouring_files()
+
+" comfortable motion
+nnoremap <silent> <C-d> :call comfortable_motion#flick(30)<CR>
+nnoremap <silent> <C-u> :call comfortable_motion#flick(-30)<CR>
+
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
+
+" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+" nvim settings
+let g:python_host_prog = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/bin/python3'
+
+" markdown
+autocmd BufRead,BufNewFile *.md setlocal spell spelllang=en_us
+autocmd BufRead,BufNewFile *.wiki setlocal spell spelllang=en_us
+
+" scroll
+set scrolloff=10
+
+" marker for 80 char
+set colorcolumn=80
+
+" on save strip white space
+let g:better_whitespace_enabled=1
+let g:strip_whitespace_on_save=1
+
+" identline tab
+let g:indentLine_enabled = 1
+let g:indentLine_concealcursor = 0
+let g:indentLine_char = '┆'
+let g:indentLine_faster = 1
+let g:indentLine_color_gui = '#FF5F00'
+
+" cursor
+set cursorline
+
+" Utilities, Dash
+nmap <silent> <leader>d <Plug>DashSearch
+
+" lightline
+set laststatus=2
+set noshowmode
+let g:lightline = {
+      \ 'colorscheme': 'dracula',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \   'component': {
+      \     'lineinfo': ' %3l:%-2v',
+      \   },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
+let g:lightline.separator = {
+	\   'left': '', 'right': ''
+  \}
+let g:lightline.subseparator = {
+	\   'left': '', 'right': ''
+  \}
+
+" Calendar vim
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
+
+" typescript
+let g:typescript_indent_disable = 1
+
+
+" javascript
+let g:tern#is_show_argument_hints_enabled = 1
+let g:deoplete#omni#functions = {}
+let g:deoplete#omni#functions.javascript = [
+  \ 'tern#Complete',
+  \ 'jspc#omni'
+\]
+set completeopt=longest,menuone,preview
+let g:deoplete#sources = {}
+let g:deoplete#sources['javascript.jsx'] = ['file', 'ternjs']
+let g:tern#command = ['tern']
+let g:tern#arguments = ['--persistent']
+autocmd FileType javascript nmap <buffer> <silent> ]d :TernDef<CR>
+autocmd FileType typescript nmap <buffer> <silent> ]d :TsuDefinition<CR>
+
+" css
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+
+" snippets
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+" Haskell
+let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
+let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
+let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+
+let g:haskell_disable_TH = 1
+" let g:haskell_indent_disable = 1
